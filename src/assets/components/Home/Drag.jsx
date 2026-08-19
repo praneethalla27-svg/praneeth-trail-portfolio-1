@@ -1,12 +1,22 @@
 import React from "react";
 import { easeInOut, motion } from "motion/react";
 
-const Drag = ({ homeRef, rotate, right, top, x, question, answer, tag }) => {
+const Drag = ({ rotate, right, top, x, question, answer, tag }) => {
   return (
     <motion.div
       drag
-      dragConstraints={homeRef}
-      className={`sm:w-55 sm:h-40 w-45 h-30 bg-black ml-20 pb-3 cursor-grab active:cursor-grabbing rounded-3xl px-3 absolute top-10 shadow-[0_1px_1px_rgba(255,255,255,0.08),0_4px_6px_rgba(0,0,0,0.3),0_24px_68px_rgba(0,0,0,0.5),0_2px_3px_rgba(255,255,255,0.04)]`}
+      dragElastic={1}
+      // dragTransition={{
+      //   bounceStiffness: 700,
+      //   bounceDamping: 30,
+      // }}
+      dragConstraints={{
+        top: -400,
+        left: -1000,
+        right: 400,
+        bottom: 150,
+      }}
+      className={`sm:w-55 sm:h-40 w-45 h-30 bg-black ml-20 pb-3 max-sm:hidden cursor-grab active:cursor-grabbing rounded-3xl px-3 absolute top-10 shadow-[0_1px_1px_rgba(255,255,255,0.08),0_4px_6px_rgba(0,0,0,0.3),0_24px_68px_rgba(0,0,0,0.5),0_2px_3px_rgba(255,255,255,0.04)]`}
       initial={{ opacity: 0, rotate: 0, x: x }}
       animate={{ opacity: 1, rotate: rotate, x: 0 }}
       transition={{ duration: 1, delay: 1.6, ease: easeInOut }}

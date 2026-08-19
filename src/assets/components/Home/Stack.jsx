@@ -38,7 +38,7 @@ const Stack = () => {
       className="h-full w-full"
     >
       {/* box */}
-      <motion.div className="grid lg:grid-cols-5 sm:grid-cols-2 grid-cols-1 w-full bg-zinc-950 shadow-[0_1px_1px_rgba(255,255,255,0.08),0_4px_6px_rgba(0,0,0,0.3),0_24px_68px_rgba(0,0,0,0.5),0_2px_3px_rgba(255,255,255,0.04)]">
+      <motion.div className="grid lg:grid-cols-5 grid-cols-2 w-full bg-zinc-950 shadow-[0_1px_1px_rgba(255,255,255,0.08),0_4px_6px_rgba(0,0,0,0.3),0_24px_68px_rgba(0,0,0,0.5),0_2px_3px_rgba(255,255,255,0.04)]">
         {stack.map((item, idx) => (
           <motion.div
             onMouseEnter={() => {
@@ -57,7 +57,7 @@ const Stack = () => {
               opacity: 1,
               textShadow: "0 0 20px rgba(215,255,95,0.6)",
             }}
-            className=" h-50 border border-white/15 bg-zinc-950 px-3 py-4"
+            className=" lg:h-50 py-3 px-4 lg:aspect-auto aspect-square sm:aspect-2/1 as border border-white/15 bg-zinc-950"
           >
             {/* FIELDS */}
             <motion.div
@@ -74,7 +74,7 @@ const Stack = () => {
                   color:
                     bgColor === idx && idx % 2 !== 0 ? "#09090B" : "#D7FF5F",
                 }}
-                className="text-[#D7FF5F] text-3xl font-black"
+                className="text-[#D7FF5F] md:text-2xl text-xl font-black"
               >
                 {item.fieldName}
               </motion.h1>

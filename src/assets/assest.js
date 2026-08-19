@@ -205,3 +205,14 @@ export const projectPageData = [
     skillsNames: ["HTML", "CSS", "GSAP", "JS"],
   },
 ];
+
+export const expert = [
+  {
+    expertname: "REACT",
+    expertImg: REACT,
+  },
+  {
+    expertname: "TAILWIND",
+    expertImg: TAILWIND,
+  },
+];

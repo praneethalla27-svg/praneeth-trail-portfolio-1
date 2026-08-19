@@ -60,7 +60,7 @@ const Navbar = () => {
                   {hovered === idx && (
                     <motion.span
                       layoutId="hovered-span"
-                      className="absolute bg-[#087F5B] shadow-[0_1px_2px_rgba(0,0,0,0.12),0_4px_8px_rgba(0,0,0,0.12),0_12px_24px_rgba(0,0,0,0.14),0_24px_48px_rgba(0,0,0,0.10)] inset-0 rounded"
+                      className="absolute bg-[#087F5B] shadow-[0_1px_2px_rgba(0,0,0,0.12),0_4px_8px_rgba(0,0,0,0.12),0_12px_24px_rgba(0,0,0,0.14),0_24px_48px_rgba(0,0,0,0.10)]q inset-0 rounded"
                     ></motion.span>
                   )}
                 </NavLink>

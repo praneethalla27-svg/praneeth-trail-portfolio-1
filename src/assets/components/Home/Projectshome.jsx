@@ -11,7 +11,7 @@ const Projectshome = () => {
   // ];
 
   return (
-    <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 w-fit mx-auto justify-items-center gap-10 sm:gap-20 md:px-7">
+    <div className="grid lg:grid-cols-3 grid-cols-1 sm:grid-cols-2 w-fit mx-auto justify-items-center gap-10 sm:gap-20 md:px-7">
       {projectData.map((project, idx) => {
         return (
           <motion.div
@@ -21,7 +21,7 @@ const Projectshome = () => {
             whileHover={{ y: -10, x: 5 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="
-              group w-full max-w-80 h-[30rem] relative overflow-hidden
+              group w-full max-w-80 min-h-[30rem] relative overflow-hidden
               rounded-2xl bg-zinc-100
               shadow-[0_1px_2px_rgba(0,0,0,0.08),0_4px_8px_rgba(0,0,0,0.08),0_12px_24px_rgba(0,0,0,0.10),0_24px_48px_rgba(0,0,0,0.08)]
             "

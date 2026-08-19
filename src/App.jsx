@@ -10,7 +10,7 @@ import SmoothScroll from "./assets/components/SmoothScroll";
 
 const App = () => {
   return (
-    <div className="min-h-screen w-full px-8">
+    <div className="min-h-screen w-full px-4 md:px-8 lg:px-16">
       <SmoothScroll />
       <Navbar />
       <Routes>

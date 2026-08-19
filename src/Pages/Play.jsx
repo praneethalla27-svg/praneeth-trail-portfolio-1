@@ -1,7 +1,9 @@
-import React from "react";
+import React from 'react'
 
 const Play = () => {
-  return <div className="mt-20">Play</div>;
-};
+  return (
+    <div>Play</div>
+  )
+}
 
-export default Play;
+export default Play
