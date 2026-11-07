@@ -1,0 +1,59 @@
+.console-wind {
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.console-wind::-webkit-scrollbar {
+  width: 10px;
+}
+
+div[name="react-console-emulator"] {
+  height: 100%;
+}
+
+.portfolio-terminal {
+  height: 100%;
+  min-height: 0;
+  background: #050807 !important;
+  color: #d7ffe0 !important;
+  border: 1px solid rgba(78, 255, 130, 0.18);
+  border-radius: 0.35rem;
+  box-sizing: border-box;
+  font-family:
+    "SFMono-Regular", Consolas, "Liberation Mono", monospace !important;
+  font-size: 0.86rem;
+}
+
+.portfolio-terminal-content {
+  height: 100%;
+  overflow: auto;
+  padding: 0.9rem !important;
+  box-sizing: border-box;
+}
+
+.portfolio-terminal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.portfolio-terminal-content::-webkit-scrollbar-thumb {
+  background: rgba(78, 255, 130, 0.28);
+  border-radius: 999px;
+}
+
+.portfolio-terminal-input-area {
+  display: flex !important;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.portfolio-terminal-prompt {
+  color: #63ff93 !important;
+  white-space: nowrap;
+}
+
+.portfolio-terminal-input {
+  color: #f3fff6 !important;
+  caret-color: #63ff93;
+}

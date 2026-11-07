@@ -1,23 +1,28 @@
 @import "tailwindcss";
 
+@theme {
+  /* --font-nohemi: "Nohemi", sans-serif; */
+  --font-space: "SpaceNova", sans-serif;
+}
+
 /* Light → #087F5B
 Dark  → #0F8A5F */
 
 @font-face {
   font-family: "Nohemi";
-  src: url("./assets/fonts/Nohemi-Thin.woff") format("woff");
+  src: url("./assets/fronts/Nohemi-Thin.woff") format("woff");
   font-weight: 100;
 }
 
 @font-face {
   font-family: "Nohemi";
-  src: url("./assets/fonts/Nohemi-ExtraLight.woff") format("woff");
+  src: url("./assets/fronts/Nohemi-ExtraLight.woff") format("woff");
   font-weight: 200;
 }
 
 @font-face {
   font-family: "Nohemi";
-  src: url("./assets/fonts/Nohemi-Light.woff") format("woff");
+  src: url("./assets/fronts/Nohemi-Light.woff") format("woff");
   font-weight: 300;
 }
 
@@ -53,9 +58,16 @@ Dark  → #0F8A5F */
 
 @font-face {
   font-family: "Nohemi";
-  src: url("./assets/fonts/Nohemi-Black.woff") format("woff");
+  src: url("./assets/fronts/Nohemi-Black.woff") format("woff");
   font-weight: 900;
 }
+
+@font-face {
+  font-family: "SpaceNova";
+  src: url("./assets/fronts/SpaceNova.otf") format("opentype");
+  font-weight: 900;
+}
+
 html,
 body,
 #root {

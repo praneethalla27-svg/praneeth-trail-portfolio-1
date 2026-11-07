@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
-import backend from "../../backend.png";
+import React, { useState } from "react";
 import { motion } from "motion/react";
 import { fields } from "../../assest";
 
+const accentColors = ["#365CFF", "#FFE65C", "#FF82AD"];
+
 const Features = () => {
-  const [bgColor, setbgColor] = useState(null);
+  const [bgColor, setBgColor] = useState(null);
 
   const containerVar = {
     hidden: {},
@@ -29,6 +30,7 @@ const Features = () => {
       },
     },
   };
+
   return (
     <motion.div
       variants={containerVar}
@@ -39,72 +41,79 @@ const Features = () => {
     >
       <motion.div
         className="
-      grid
-      grid-cols-2
-      lg:grid-cols-5
-      w-full
-      bg-zinc-950
-      shadow-[0_1px_1px_rgba(255,255,255,0.08),0_4px_6px_rgba(0,0,0,0.3),0_24px_68px_rgba(0,0,0,0.5)]
-    "
+          grid grid-cols-2 lg:grid-cols-5
+          w-full
+          border-2 border-[#171717]
+          bg-[#F4F1E9]
+          shadow-[7px_7px_0px_#171717]
+        "
       >
-        {fields.map((item, idx) => (
-          <motion.div
-            key={idx}
-            variants={cardVar}
-            onMouseEnter={() => setbgColor(idx)}
-            onMouseLeave={() => setbgColor(null)}
-            animate={{
-              backgroundColor:
-                bgColor === idx && idx % 2 === 0 ? "#D7FF5F" : "#09090B",
-            }}
-            whileHover={{
-              textShadow: "0 0 20px rgba(215,255,95,0.6)",
-            }}
-            className=" lg:h-50 py-3 px-4 lg:aspect-auto aspect-square sm:aspect-2/1 as border border-white/15 bg-zinc-950"
-          >
-            {/* FIELD */}
+        {fields.map((item, idx) => {
+          const isHovered = bgColor === idx;
+
+          return (
             <motion.div
+              key={idx}
+              variants={cardVar}
+              onMouseEnter={() => setBgColor(idx)}
+              onMouseLeave={() => setBgColor(null)}
               animate={{
-                color: bgColor === idx && idx % 2 === 0 ? "#09090B" : "#D7FF5F",
+                backgroundColor: isHovered
+                  ? accentColors[idx % accentColors.length]
+                  : "#F4F1E9",
+              }}
+              whileHover={{
+                textShadow: "none",
+              }}
+              transition={{
+                duration: 0.25,
+                ease: "easeOut",
               }}
               className="
-            text-xs
-            font-medium
-            tracking-wide
-          "
+                lg:h-50 py-3 px-4
+                lg:aspect-auto
+                aspect-square
+                sm:aspect-2/1
+                border border-[#171717]
+                bg-[#F4F1E9]
+                cursor-pointer
+              "
             >
-              {item.field}
-            </motion.div>
+              {/* FIELD */}
 
-            {/* FIELD NAME */}
-            <div className="flex items-center justify-center h-full">
-              <motion.h1
-                animate={{
-                  color:
-                    bgColor === idx && idx % 2 === 0 ? "#09090B" : "#D7FF5F",
-                }}
+              <motion.div
                 className="
-            text-xl
-            md:text-2xl
-            font-black
-          "
+                  text-xs
+                  font-bold
+                  tracking-wide
+                  text-[#171717]
+                "
               >
-                {item.fieldName}
-              </motion.h1>
-            </div>
-          </motion.div>
-        ))}
+                {item.field}
+              </motion.div>
 
-        {/* EMPTY MOBILE BOX */}
-        {/* <div
-          className="
-        aspect-square
-        bg-zinc-800/80
-        border
-        border-white/15
-        lg:hidden
-      "
-        /> */}
+              {/* FIELD NAME */}
+
+              <div className="flex items-center justify-center h-full">
+                <motion.h1
+                  animate={{
+                    color: "#171717",
+                    scale: isHovered ? 1.05 : 1,
+                  }}
+                  transition={{ duration: 0.25 }}
+                  className="
+                    text-xl
+                    md:text-2xl
+                    font-black
+                    text-[#171717]
+                  "
+                >
+                  {item.fieldName}
+                </motion.h1>
+              </div>
+            </motion.div>
+          );
+        })}
       </motion.div>
     </motion.div>
   );

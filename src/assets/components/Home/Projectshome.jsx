@@ -1,79 +1,143 @@
-import React, { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import React from "react";
+import { motion } from "motion/react";
 import { projectData } from "../../assest";
 import arrow from "../../images/arrow.svg";
 
 const Projectshome = () => {
-  // const technologies = [
-  //   { image: html, name: "HTML" },
-  //   { image: css, name: "CSS" },
-  //   { image: js, name: "JavaScript" },
-  // ];
-
   return (
-    <div className="grid lg:grid-cols-3 grid-cols-1 sm:grid-cols-2 w-fit mx-auto justify-items-center gap-10 sm:gap-20 md:px-7">
+    <div
+      className="
+      grid lg:grid-cols-3 grid-cols-1 sm:grid-cols-2
+      w-fit mx-auto justify-items-center
+      gap-10 sm:gap-12 md:px-7
+    "
+    >
       {projectData.map((project, idx) => {
         return (
           <motion.div
+            key={idx}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            whileHover={{ y: -10, x: 5 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            whileHover={{ y: -8, x: 3 }}
+            transition={{
+              duration: 0.5,
+              ease: "easeOut",
+            }}
             className="
-              group w-full max-w-80 min-h-[30rem] relative overflow-hidden
-              rounded-2xl bg-zinc-100
-              shadow-[0_1px_2px_rgba(0,0,0,0.08),0_4px_8px_rgba(0,0,0,0.08),0_12px_24px_rgba(0,0,0,0.10),0_24px_48px_rgba(0,0,0,0.08)]
+              group w-full max-w-80 min-h-[30rem]
+              relative overflow-visible
+              border-2 border-[#171717]
+              bg-[#F4F1E9]
+              text-[#171717]
+              shadow-[6px_6px_0px_#171717]
+              hover:shadow-[9px_9px_0px_#365CFF]
+              transition-shadow duration-300
             "
           >
             {/* Browser Header */}
+
             <div className="px-4 pt-3">
-              <div className="flex items-center justify-between border-b border-[#979D97] pb-2">
-                {/* Traffic lights */}
+              <div
+                className="
+                flex items-center justify-between
+                border-b-2 border-[#171717]
+                pb-3
+              "
+              >
+                {/* Traffic Lights */}
+
                 <div className="flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#FF6B6B]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#FFE65C]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#79C99E]" />
                 </div>
 
-                {/* Project name */}
-                <span className="text-[11px] font-semibold tracking-tight">
+                {/* Project Name */}
+
+                <span
+                  className="
+                  text-[11px] font-bold
+                  tracking-tight text-[#171717]
+                "
+                >
                   {project.heading}
                 </span>
               </div>
             </div>
 
-            {/* Content */}
-            <div className="px-4 pt-3">
-              {/* Project preview */}
-              <div className="overflow-hidden rounded-2xl">
+            {/* Project Content */}
+
+            <div className="px-4 pt-4">
+              {/* Project Preview */}
+
+              <div
+                className="
+                overflow-hidden
+                border-2 border-[#171717]
+                bg-white
+              "
+              >
                 <motion.img
                   src={project.projectImg}
-                  alt="Portfolio project preview"
-                  className="block w-full object-cover"
+                  alt={`${project.heading} project preview`}
+                  className="
+                    block w-full aspect-[4/3]
+                    object-cover
+                    transition-transform duration-500
+                    group-hover:scale-105
+                  "
                 />
               </div>
 
-              {/* Project title */}
+              {/* Project Title */}
+
               <div className="relative mt-5">
-                <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
+                <p
+                  className="
+                  text-[11px] font-black
+                  uppercase tracking-[0.18em]
+                  text-[#365CFF]
+                "
+                >
                   {project.projectNumber}
                 </p>
 
-                <h1 className="mt-1 text-2xl font-bold tracking-tight text-zinc-950">
+                <h2
+                  className="
+                  mt-1 text-2xl
+                  font-black tracking-tight
+                  text-[#171717]
+                "
+                >
                   {project.desc}
-                </h1>
+                </h2>
               </div>
 
-              {/* Description / label */}
-              <div className="mt-4 w-fit rounded-lg bg-zinc-950 px-5 py-3">
-                <p className="text-sm font-medium text-[#D7FF5F]">
+              {/* Project Tag */}
+
+              <div
+                className="
+                mt-4 w-fit
+                bg-[#FFE65C]
+                border-2 border-[#171717]
+                px-4 py-2
+                shadow-[3px_3px_0px_#171717]
+              "
+              >
+                <p
+                  className="
+                  text-sm font-bold
+                  text-[#171717]
+                "
+                >
                   {project.tag}
                 </p>
               </div>
 
               {/* Technologies */}
-              <div className="mt-5 flex items-center">
+
+              <div className="mt-6 flex items-center">
                 {project.skills.map((skills, index) => (
                   <motion.div
                     key={index}
@@ -98,13 +162,18 @@ const Projectshome = () => {
                       delay: index * 0.1,
                     }}
                   >
-                    {/* ICON */}
+                    {/* Technology Icon */}
+
                     <motion.img
                       src={skills}
-                      alt={skills}
+                      alt={project.skillsNames[index]}
                       className={`
-                        relative z-10 h-10 w-10 rounded-xl
-                        bg-zinc-100 object-contain p-1 shadow-sm
+                        relative z-10
+                        h-10 w-10
+                        border-2 border-[#171717]
+                        bg-[#F4F1E9]
+                        object-contain p-1
+                        shadow-[2px_2px_0px_#171717]
                         ${index !== 0 ? "-ml-2" : ""}
                       `}
                       variants={{
@@ -127,13 +196,20 @@ const Projectshome = () => {
                       }}
                     />
 
-                    {/* TOOLTIP */}
+                    {/* Technology Tooltip */}
+
                     <motion.span
                       className="
-                        pointer-events-none absolute top-full left-1/2 z-50
-                        mt-2 -translate-x-1/2 whitespace-nowrap
-                        rounded-md bg-zinc-950 px-2 py-1
-                        text-[9px] font-semibold uppercase tracking-wider text-white
+                        pointer-events-none
+                        absolute top-full left-1/2 z-50
+                        mt-3 -translate-x-1/2
+                        whitespace-nowrap
+                        border-2 border-[#171717]
+                        bg-[#171717]
+                        px-2 py-1
+                        text-[9px] font-bold
+                        uppercase tracking-wider
+                        text-[#FFE65C]
                       "
                       variants={{
                         initial: {
@@ -164,11 +240,33 @@ const Projectshome = () => {
               </div>
             </div>
 
-            <div className="absolute bottom-10 right-10">
+            {/* Project Arrow */}
+
+            <div
+              className="
+              absolute bottom-7 right-5
+              flex items-center justify-center
+              h-11 w-11
+              border-2 border-[#171717]
+              bg-[#365CFF]
+              shadow-[3px_3px_0px_#171717]
+              transition-all duration-300
+              group-hover:bg-[#FFE65C]
+              group-hover:translate-x-1
+              group-hover:-translate-y-1
+            "
+            >
               <img
                 src={arrow}
-                alt=""
-                className="h-11 w-11 rounded-full p-1 transition-all delay-300 duration-500 ease-in-out group-hover:rotate-180 hover:bg-neutral-200"
+                alt="View project"
+                className="
+                  h-6 w-6
+                  brightness-0 invert
+                  transition-all duration-300
+                  group-hover:brightness-0
+                  group-hover:invert-0
+                  group-hover:rotate-[-45deg]
+                "
               />
             </div>
           </motion.div>
