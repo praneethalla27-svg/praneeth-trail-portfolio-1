@@ -12,6 +12,8 @@ const initialSnake = [
   { x: 3, y: 5 },
 ];
 
+const initialDirection = { x: 1, y: 0 };
+
 const randomFood = (snake) => {
   let position;
 
@@ -35,19 +37,27 @@ const PlayHome = () => {
   const [snake, setSnake] = useState(initialSnake);
   const [food, setFood] = useState({ x: 10, y: 5 });
   const [score, setScore] = useState(0);
-  const [direction, setDirection] = useState({ x: 1, y: 0 });
 
-  const directionRef = useRef(direction);
+  const directionRef = useRef(initialDirection);
 
+  // Change snake direction
+  const changeDirection = (newDirection) => {
+    const current = directionRef.current;
+
+    // Prevent reversing into yourself
+    if (newDirection.x + current.x === 0 && newDirection.y + current.y === 0) {
+      return;
+    }
+
+    directionRef.current = newDirection;
+  };
+
+  // Start / Restart game
   const startGame = () => {
     setSnake(initialSnake);
     setFood({ x: 10, y: 5 });
     setScore(0);
-
-    const initialDirection = { x: 1, y: 0 };
-    setDirection(initialDirection);
     directionRef.current = initialDirection;
-
     setGameOver(false);
     setStarted(true);
   };
@@ -71,19 +81,7 @@ const PlayHome = () => {
       if (!newDirection || !started || gameOver) return;
 
       e.preventDefault();
-
-      const current = directionRef.current;
-
-      // Prevent reversing into yourself
-      if (
-        newDirection.x + current.x === 0 &&
-        newDirection.y + current.y === 0
-      ) {
-        return;
-      }
-
-      directionRef.current = newDirection;
-      setDirection(newDirection);
+      changeDirection(newDirection);
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -142,69 +140,79 @@ const PlayHome = () => {
   }, [started, gameOver, food]);
 
   return (
-    <div>
+    <div className="w-full overflow-hidden font-space">
       <Title name="play" />
 
       <div
         id="container"
-        className="w-full min-h-[600px] flex border-y-2 border-[#171717]"
+        className="flex w-full min-h-[600px] flex-col border-y-2 border-[#171717] lg:flex-row"
       >
         {/* LEFT CONTAINER */}
-        <div className="w-1/2 min-h-full bg-[#365CFF] text-[#F4F1E9] p-3 font-space flex flex-col relative overflow-hidden">
-          <div className="absolute top-5 right-5 w-20 h-20 rounded-full bg-[#FFE65C] border-2 border-[#171717]" />
+        <div className="relative flex min-h-[420px] w-full flex-col overflow-hidden bg-[#365CFF] p-5 text-[#F4F1E9] sm:min-h-[500px] sm:p-8 lg:min-h-[600px] lg:w-1/2">
+          {/* Decorative Circle */}
+          <div className="absolute right-5 top-5 h-14 w-14 rounded-full border-2 border-[#171717] bg-[#FFE65C] sm:right-10 sm:top-10 sm:h-20 sm:w-20" />
 
-          <h1 className="text-9xl w-70 font-black uppercase leading-[0.85] tracking-tight">
-            FUN STUFF <span className="text-[#FFE65C]">HERE!!</span>
+          <h1 className="relative z-10 max-w-full text-[clamp(3.5rem,10vw,9rem)] font-black uppercase leading-[0.85] tracking-tight">
+            FUN STUFF
+            <span className="block text-[#FFE65C]">HERE!!</span>
           </h1>
 
+          {/* Game Page Button */}
           <motion.div
             whileHover={{
               color: "#FFE65C",
               x: 8,
             }}
-            className="absolute bottom-30 right-20 flex gap-3 max-w-fit px-5 py-1 font-bold cursor-pointer"
+            className="absolute bottom-12 right-5 flex max-w-fit cursor-pointer items-center gap-3 px-3 py-2 font-bold sm:bottom-20 sm:right-10 sm:px-5 lg:bottom-30 lg:right-20"
           >
-            <button>ENTER PLAYAREA</button>
-            <img className="invert rotate-135" src={arrow} alt="Arrow" />
+            <button className="text-xs sm:text-sm lg:text-base">
+              ENTER PLAYAREA
+            </button>
+
+            <img
+              className="h-6 w-6 invert rotate-135 sm:h-8 sm:w-8"
+              src={arrow}
+              alt="Arrow"
+            />
           </motion.div>
         </div>
 
         {/* RIGHT CONTAINER - SNAKE GAME */}
-        <div className="w-1/2 min-h-full bg-[#FFE65C] relative overflow-hidden flex items-center justify-center border-l-2 border-[#171717] p-5">
+        <div className="relative flex min-h-[420px] w-full flex-1 items-center justify-center overflow-hidden border-t-2 border-[#171717] bg-[#FFE65C] p-4 sm:min-h-[500px] sm:p-8 lg:min-h-[600px] lg:w-1/2 lg:border-l-2 lg:border-t-0">
           {!started ? (
             /* GAME START SCREEN */
             <motion.button
               onClick={startGame}
               whileHover={{ scale: 1.05, rotate: -3 }}
               whileTap={{ scale: 0.95 }}
-              className="w-64 h-64 bg-[#FF82AD] border-2 border-[#171717] shadow-[10px_10px_0px_#171717] rotate-[-8deg] flex items-center justify-center cursor-pointer"
+              className="flex aspect-square w-52 max-w-[80%] items-center justify-center border-2 border-[#171717] bg-[#FF82AD] shadow-[8px_8px_0px_#171717] sm:w-64 sm:shadow-[10px_10px_0px_#171717]"
             >
-              <span className="text-5xl font-black text-[#171717] uppercase text-center leading-none">
+              <span className="text-4xl font-black uppercase leading-none text-[#171717] sm:text-5xl">
                 Let's
                 <br />
                 Play!
-                <span className="block text-sm mt-4 tracking-widest">
+                <span className="mt-4 block text-xs tracking-widest sm:text-sm">
                   CLICK TO START →
                 </span>
               </span>
             </motion.button>
           ) : (
             /* GAME SCREEN */
-            <div className="w-full max-w-[500px] flex flex-col items-center">
+            <div className="flex w-full max-w-[500px] flex-col items-center">
               {/* Score */}
-              <div className="w-full flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-black uppercase text-[#171717]">
+              <div className="mb-4 flex w-full items-center justify-between gap-2">
+                <h2 className="text-lg font-black uppercase text-[#171717] sm:text-2xl">
                   Snake Game
                 </h2>
 
-                <div className="bg-[#171717] text-[#FFE65C] px-4 py-2 font-black">
+                <div className="whitespace-nowrap bg-[#171717] px-3 py-2 text-xs font-black text-[#FFE65C] sm:px-4 sm:text-sm">
                   SCORE: {score}
                 </div>
               </div>
 
               {/* Game Board */}
               <div
-                className="relative w-full border-2 border-[#171717] bg-[#F4F1E9] shadow-[6px_6px_0px_#171717]"
+                className="relative w-full border-2 border-[#171717] bg-[#F4F1E9] shadow-[5px_5px_0px_#171717] sm:shadow-[6px_6px_0px_#171717]"
                 style={{
                   display: "grid",
                   gridTemplateColumns: `repeat(${GRID_WIDTH}, minmax(0, 1fr))`,
@@ -230,30 +238,30 @@ const PlayHome = () => {
                       <div
                         key={index}
                         className={`
-                          border-[0.5px] border-[#171717]/10
+                          min-w-0 min-h-0 border-[0.5px] border-[#171717]/10
                           ${isSnake ? "bg-[#365CFF]" : ""}
                           ${isHead ? "bg-[#171717]" : ""}
-                          ${isFood ? "bg-[#FF82AD] rounded-full scale-75" : ""}
+                          ${isFood ? "scale-75 rounded-full bg-[#FF82AD]" : ""}
                         `}
                       />
                     );
                   },
                 )}
 
-                {/* Game Over Overlay */}
+                {/* Game Over */}
                 {gameOver && (
-                  <div className="absolute inset-0 bg-[#171717]/90 flex flex-col items-center justify-center text-center p-4">
-                    <h2 className="text-4xl font-black text-[#FFE65C]">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#171717]/90 p-3 text-center">
+                    <h2 className="text-2xl font-black text-[#FFE65C] sm:text-4xl">
                       GAME OVER!
                     </h2>
 
-                    <p className="text-[#F4F1E9] font-bold mt-2">
+                    <p className="mt-2 text-sm font-bold text-[#F4F1E9]">
                       FINAL SCORE: {score}
                     </p>
 
                     <button
                       onClick={startGame}
-                      className="mt-5 px-6 py-3 bg-[#FF82AD] border-2 border-[#F4F1E9] text-[#171717] font-black uppercase hover:bg-[#FFE65C] transition-colors"
+                      className="mt-4 border-2 border-[#F4F1E9] bg-[#FF82AD] px-4 py-2 text-xs font-black uppercase text-[#171717] transition-colors hover:bg-[#FFE65C] sm:px-6 sm:py-3 sm:text-sm"
                     >
                       Play Again ↻
                     </button>
@@ -261,21 +269,61 @@ const PlayHome = () => {
                 )}
               </div>
 
-              {/* Controls */}
-              <p className="mt-5 text-xs font-bold uppercase text-[#171717] text-center">
+              {/* Desktop Instructions */}
+              <p className="mt-5 hidden text-center text-xs font-bold uppercase text-[#171717] sm:block">
                 Use ↑ ↓ ← → or WASD to move
               </p>
 
+              {/* Mobile Direction Controls */}
+              <div className="mt-5 grid grid-cols-3 gap-2 sm:hidden">
+                <div />
+
+                <button
+                  onClick={() => changeDirection({ x: 0, y: -1 })}
+                  disabled={gameOver}
+                  className="h-12 w-14 border-2 border-[#171717] bg-[#F4F1E9] text-xl font-black active:bg-[#FF82AD] disabled:opacity-40"
+                >
+                  ↑
+                </button>
+
+                <div />
+
+                <button
+                  onClick={() => changeDirection({ x: -1, y: 0 })}
+                  disabled={gameOver}
+                  className="h-12 w-14 border-2 border-[#171717] bg-[#F4F1E9] text-xl font-black active:bg-[#FF82AD] disabled:opacity-40"
+                >
+                  ←
+                </button>
+
+                <button
+                  onClick={() => changeDirection({ x: 0, y: 1 })}
+                  disabled={gameOver}
+                  className="h-12 w-14 border-2 border-[#171717] bg-[#F4F1E9] text-xl font-black active:bg-[#FF82AD] disabled:opacity-40"
+                >
+                  ↓
+                </button>
+
+                <button
+                  onClick={() => changeDirection({ x: 1, y: 0 })}
+                  disabled={gameOver}
+                  className="h-12 w-14 border-2 border-[#171717] bg-[#F4F1E9] text-xl font-black active:bg-[#FF82AD] disabled:opacity-40"
+                >
+                  →
+                </button>
+              </div>
+
+              {/* Restart */}
               <button
                 onClick={startGame}
-                className="mt-3 text-xs font-black uppercase underline text-[#171717]"
+                className="mt-4 text-xs font-black uppercase text-[#171717] underline underline-offset-4"
               >
-                Restart Game
+                Restart Game ↻
               </button>
             </div>
           )}
 
-          <span className="absolute bottom-5 right-5 text-xs font-bold uppercase tracking-widest text-[#171717]">
+          <span className="pointer-events-none absolute bottom-3 right-3 text-[9px] font-bold uppercase tracking-widest text-[#171717] sm:bottom-5 sm:right-5 sm:text-xs">
             Explore • Experiment • Enjoy
           </span>
         </div>
