@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Title from "../common/Title";
 import arrow from "../../images/arrow.svg";
 import { motion } from "motion/react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const GRID_WIDTH = 16;
 const GRID_HEIGHT = 12;
@@ -37,6 +38,7 @@ const PlayHome = () => {
   const [snake, setSnake] = useState(initialSnake);
   const [food, setFood] = useState({ x: 10, y: 5 });
   const [score, setScore] = useState(0);
+  const navigate = useNavigate();
 
   const directionRef = useRef(initialDirection);
 
@@ -165,7 +167,13 @@ const PlayHome = () => {
             }}
             className="absolute bottom-12 right-5 flex max-w-fit cursor-pointer items-center gap-3 px-3 py-2 font-bold sm:bottom-20 sm:right-10 sm:px-5 lg:bottom-30 lg:right-20"
           >
-            <button className="text-xs sm:text-sm lg:text-base">
+            <button
+              onClick={() => {
+                navigate("/play");
+                window.scrollTo(0, 0);
+              }}
+              className="text-xs sm:text-sm lg:text-base"
+            >
               ENTER PLAYAREA
             </button>
 

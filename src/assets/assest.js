@@ -28,10 +28,6 @@ export const navLinks = [
     name: "Play",
     url: "/play",
   },
-  {
-    name: "Contract",
-    url: "/contract",
-  },
 ];
 
 export const fields = [
